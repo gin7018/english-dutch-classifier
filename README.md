@@ -1,4 +1,4 @@
-# English-dutch-classifier
+# english-dutch-classifier
 uses both decision trees and adaptive boosting to classify sentences as English or Dutch </br>
 
 ## Usage
