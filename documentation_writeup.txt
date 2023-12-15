@@ -1,0 +1,86 @@
+A. Features used and how they were chosen
+
+these three features were chosen after researching about the words
+used in the english grammar and after finding out that most
+words had similar endings, these endings were chosen as the most common ones.
+most common endings in english:
+- does any word in the sentence end with -ED
+- does any word in the sentence end with -LY
+- does any word in the sentence end with -NG
+
+these three features were chosen after finding out that different character
+combinations were very common in different languages. In dutch these are the
+most common character combinations:
+- does any word in the sentence have -IJ-
+- does any word in the sentence have -OE-
+- does any word in the sentence have -SCH-
+
+these two features were chosen after conducting an experiment in the dataset
+that was gathered. A frequency table was built of the frequency of words in 
+each language and the top 10 words most used words were extracted
+- common english words: the, of, and, to, was, his, he 
+- common dutch words: de, van, het, en, een, op, met, hij 
+
+these feature was chosen after running an experiemnt in the dataset
+on what the average word length was for english and dutch sentence.
+it was found that most of the time english sentences were shorter than
+dutch sentences and this threshold of 5.1 is used. If the average word
+length of a sentence is below 5.1, it is most likely english, dutch otherwise
+- average word length exceeds 5.107326882472174?
+
+B. DECISION TREE LEARNING
+The decision tree was designed to run recursively like a binary tree
+due to the fact that there was only two classes
+The max depth of the tree was set to 10. This is to avoid over-fitting the
+data but also because the error rate after this depth was not decreasing significantly 
+
+testing results:
+max-depth = 3; decision tree error rate:  	2.4043715846994536
+max-depth = 7; decision tree error rate:  	1.4207650273224044
+max-depth = 10; decision tree error rate:  	1.3114754098360655
+max-depth = 15; decision tree error rate:  	1.3114754098360655
+decision tree learner error rate on validation data:   2.0
+
+C. ADA BOOSTING
+The ada boosting learner was constructed with the help of the decision tree
+algorithm with the max depth set to 1.
+After testing, the optimal decision stump number turned out to be 50
+
+testing results:
+number of stumps = 100; ada boost error rate:  	2.15633423180593
+number of stumps = 70; ada boost error rate:	2.15633423180593
+number of stumps = 50; ada boost error rate:	2.15633423180593
+
+ada boost error rate on validation data:	2.888888888888889
+
+
+D. OTHER
+Training was done on 60% of the dataset
+Validation was done on the other 40% of the dataset
+
+E. DOCUMENTATION
+ada_boost_leaner.py: the ada boost full implementation, computes its own error rate
+			updates the weights for the next stump to use
+			saves the learner stumps as json, and retrives them as needed
+
+decision_tree_learner.py: implements the binary decision tree
+			saves the tree as json and computes its own error rate
+
+text_lab.py: does multiple experiments and generates the features to be used by the learners
+
+common.py: common library for the ada booster and decision tree learners to use
+		has methods to compute the entropy, information gain, and use weights when needed,
+		serialize and deserialize the decision trees/stumps as needed
+
+features.txt: contains text version of the features gathered by the text_lab
+		used to predict future data and improve the prediction by adding or removing
+		features
+
+best.model: best model (decision tree mode)
+
+lab3.py: main entry, devides the data into two piles: training data, validation data
+	trains and tests the learners using validation and training data
+
+random_text_material.py: calls the wikipedia api to generate random articles in english
+			and saves them in a big csv to be used as training and validation data
+
